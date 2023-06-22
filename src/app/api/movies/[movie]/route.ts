@@ -24,10 +24,6 @@ export async function GET(request: Request) {
   const movieName = request.url.slice(request.url.lastIndexOf("/") + 1);
   const body = searchMovieBody(movieName).get("query");
 
-  console.log("movieName: ", movieName);
-
-  console.log("body.get('query'): ", body);
-
   const res = await fetch(`${DATA_SOURCE_URL}`, {
     method: "POST",
     headers: {
@@ -37,5 +33,8 @@ export async function GET(request: Request) {
   });
 
   const resJson = await res.json();
-  return NextResponse.json(resJson);
+
+  // console.log(JSON.stringify(resJson.hits.hits));
+
+  return NextResponse.json(resJson.hits.hits);
 }
