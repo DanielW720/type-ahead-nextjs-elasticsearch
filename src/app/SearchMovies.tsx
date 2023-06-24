@@ -10,9 +10,12 @@ export const SearchMovies = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <FetchMoviesButton setMovies={setMovies} />
-      <ul>
+      <ul className="mt-10">
         {movies.map((movie) => (
-          <li key={movie.id} className="border-[2px] border-blue-400 bg-pink-200 px-6 py-2 text-white">
+          <li
+            key={movie.id}
+            className="my-2 border-l-4 border-blue-400 bg-gradient-to-r from-pink-300 from-[80%] to-black py-2 pl-2 pr-6 text-black"
+          >
             <button
               onClick={() => {
                 window.open(`https://google.com/search?q=${movie.title} movie`);
