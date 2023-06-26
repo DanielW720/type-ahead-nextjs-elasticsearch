@@ -17,7 +17,7 @@ services:
       - 9200:9200
       - 9300:9300
     volumes:
-      - es-data:/usr/share/elasticsearch/data
+      - ./elasticsearch-data:/usr/share/elasticsearch/data
     networks:
       - kibana-elasticsearch-net
 
@@ -31,16 +31,10 @@ services:
     depends_on:
       - elasticsearch
     volumes:
-      - kibana-data:/use/share/kibana/data
+      - ./kibana-data:/use/share/kibana/data
     networks:
       - kibana-elasticsearch-net
 
 networks:
   kibana-elasticsearch-net:
     driver: bridge
-
-volumes:
-  kibana-data:
-    driver: local
-  es-data:
-    driver: local

@@ -1,0 +1,3 @@
+# Elasticsearch and Kibana volumes
+/elasticsearch-data
+/kibana-data
