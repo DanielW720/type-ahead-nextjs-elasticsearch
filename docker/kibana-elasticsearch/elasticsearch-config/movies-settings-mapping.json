@@ -1,4 +1,23 @@
 {
+  "settings": {
+    "number_of_shards": "1",
+    "analysis": {
+      "filter": {
+        "edge_ngram_2_20": {
+          "type": "edge_ngram",
+          "min_gram": "2",
+          "max_gram": "20"
+        }
+      },
+      "analyzer": {
+        "autocomplete_2_20": {
+          "filter": ["lowercase", "edge_ngram_2_20"],
+          "tokenizer": "standard"
+        }
+      }
+    },
+    "number_of_replicas": "0"
+  },
   "mappings": {
     "properties": {
       "Certificate": {
