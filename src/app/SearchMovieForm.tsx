@@ -54,12 +54,6 @@ export const FetchMoviesForm = ({
           className="mt-2 w-fit cursor-pointer rounded-md bg-pink-300 px-2 py-2 font-semibold text-blue-950"
         />
       </form>
-      {/* <button
-        onClick={handleSearchMovieClick}
-        className="flex h-14 w-36 items-center justify-center rounded-md bg-pink-300 font-semibold text-blue-950"
-      >
-        Search movies
-      </button> */}
     </div>
   );
 };
