@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "index": {
+      "routing": {
+        "allocation": {
+          "include": {
+            "_tier_preference": "data_content"
+          }
+        }
+      },
+      "number_of_shards": "1",
+      "provided_name": "movies3",
+      "creation_date": "1687796117544",
+      "analysis": {
+        "filter": {
+          "edge_ngram_2_20": {
+            "type": "edge_ngram",
+            "min_gram": "2",
+            "max_gram": "20"
+          }
+        },
+        "analyzer": {
+          "autocomplete_2_20": {
+            "filter": ["lowercase", "edge_ngram_2_20"],
+            "tokenizer": "standard"
+          }
+        }
+      },
+      "number_of_replicas": "0",
+      "uuid": "2RuH2WWMR-eu5RdziLhM8g",
+      "version": {
+        "created": "7170699"
+      }
+    }
+  }
+}
