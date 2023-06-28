@@ -1,3 +1,4 @@
+import { Movie, MovieResponse } from "@/app/types/movie";
 import { NextResponse } from "next/server";
 
 const DATA_SOURCE_URL = "http://localhost:9200/movies/_search";
@@ -9,6 +10,14 @@ const searchMovieBody = (q: string) => {
     query: {
       match: {
         Series_Title: q,
+      },
+    },
+    suggest: {
+      title_suggestion: {
+        text: q,
+        term: {
+          field: "Series_Title",
+        },
       },
     },
   });
@@ -33,8 +42,26 @@ export async function GET(request: Request) {
   });
 
   const resJson = await res.json();
+  const moviesResonse: MovieResponse = resJson.hits.hits;
 
-  // console.log(JSON.stringify(resJson.hits.hits));
+  // Edit response
+  const movies: Movie[] = [];
+  moviesResonse.forEach((movie) => {
+    movies.push({
+      id: movie._id,
+      director: movie._source.Director,
+      genre: movie._source.Genre,
+      releasedYear: movie._source.Released_Year,
+      title: movie._source.Series_Title,
+      star1: movie._source.Star1,
+      star2: movie._source.Star2,
+      star3: movie._source.Star3,
+      star4: movie._source.Star4,
+    });
+  });
 
-  return NextResponse.json(resJson.hits.hits);
+  // console.log(JSON.stringify(resJson));
+
+  // return NextResponse.json(resJson.hits.hits);
+  return NextResponse.json(movies);
 }

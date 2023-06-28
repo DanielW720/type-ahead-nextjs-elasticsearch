@@ -19,21 +19,7 @@ export const FetchMoviesForm = ({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const res: MovieResponse = await searchMovie(data.query);
-    const movies: Movie[] = [];
-    res.forEach((movie) => {
-      movies.push({
-        id: movie._id,
-        director: movie._source.Director,
-        genre: movie._source.Genre,
-        releasedYear: movie._source.Released_Year,
-        title: movie._source.Series_Title,
-        star1: movie._source.Star1,
-        star2: movie._source.Star2,
-        star3: movie._source.Star3,
-        star4: movie._source.Star4,
-      });
-    });
+    const movies: Movie[] = await searchMovie(data.query);
     setMovies(movies);
   };
 
