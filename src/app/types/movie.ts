@@ -4,27 +4,67 @@ export type Movie = {
   genre: string;
   releasedYear: number;
   title: string;
-  star1: string | null;
-  star2: string | null;
-  star3: string | null;
-  star4: string | null;
+  star4?: string;
+  star3?: string;
+  star2?: string;
+  star1?: string;
+  posterLink: string;
 };
 
-export type MovieResponse = [
-  {
-    _index: string;
-    _type: string;
-    _id: string;
-    _score: number;
-    _source: {
-      Star4: string | null;
-      Star3: string | null;
-      Star2: string | null;
-      Released_Year: number;
-      Director: string;
-      Star1: string | null;
-      Series_Title: string;
-      Genre: string;
+export type SearchEngineResponse = {
+  hits: {
+    total: {
+      value: number;
     };
-  }
-];
+    hits: [
+      {
+        _index: string;
+        _id: string;
+        _score: number;
+        _source: {
+          Star4?: string;
+          Star3?: string;
+          Star2?: string;
+          Star1?: string;
+          Released_Year: number;
+          Director: string;
+          Series_Title: string;
+          Genre: string;
+          Poster_Link: string;
+        };
+      }
+    ];
+  };
+  suggest: {
+    title_phrase_suggestions: [
+      {
+        text: string;
+        offset: number;
+        length: number;
+        options: [
+          {
+            text: string;
+            score: number;
+          }
+        ];
+      }
+    ];
+  };
+};
+
+export type Suggestion = {
+  text: string;
+  offset: number;
+  length: number;
+  options: [
+    {
+      text: string;
+      score: number;
+    }
+  ];
+};
+
+export type MovieSearchResponse = {
+  hits: { total: number; movies: Movie[] };
+  suggestions: Suggestion[];
+};

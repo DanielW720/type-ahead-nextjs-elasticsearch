@@ -1,4 +1,4 @@
-import { FetchMoviesForm } from "./SearchMovieForm";
+import { SearchMoviesForm } from "./SearchMovieForm";
 import { SearchMovies } from "./SearchMovies";
 
 export default async function Page() {
