@@ -5,8 +5,10 @@ import { Movie, MovieSearchResponse } from "./types/movie";
 import { SearchMoviesForm } from "./SearchMovieForm";
 
 export const SearchMovies = () => {
-  const [searchResponse, setSearchResponse] =
-    useState<MovieSearchResponse | null>(null);
+  const [searchResponse, setSearchResponse] = useState<{
+    queryTerm: String;
+    response: MovieSearchResponse;
+  } | null>(null);
 
   const searchMoviesForm = (
     <SearchMoviesForm
@@ -17,19 +19,26 @@ export const SearchMovies = () => {
 
   if (!searchResponse) return searchMoviesForm;
 
-  const suggestions = searchResponse.suggestions[0].options;
+  const suggestions = searchResponse.response.suggestions[0].options;
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {searchMoviesForm}
+      {searchMoviesForm}{" "}
+      <h3 className="mt-6 italic tracking-wide text-blue-400">
+        Showing {searchResponse.response.hits.total} results for "
+        {searchResponse.queryTerm}"
+      </h3>
       {suggestions.length > 0 && (
-        <h3 className="mt-2 italic tracking-wide text-blue-400">
+        <h3 className="mt-6 italic tracking-wide text-blue-400">
           Did you mean{" "}
           <button
             className="italic tracking-wide text-pink-300"
             onClick={async () => {
               const res = await searchMovies(suggestions[0].text);
-              setSearchResponse(res);
+              setSearchResponse({
+                queryTerm: suggestions[0].text,
+                response: res,
+              });
             }}
           >
             {suggestions[0].text}
@@ -37,8 +46,8 @@ export const SearchMovies = () => {
           ?
         </h3>
       )}
-      <ul className="mt-10">
-        {searchResponse.hits.movies.map((movie) => (
+      <ul className="mt-6">
+        {searchResponse.response.hits.movies.map((movie) => (
           <li
             key={movie.id}
             className="my-2 rounded-sm border-l-4 border-blue-400 bg-pink-300 px-4 py-2 text-lg font-semibold text-blue-950"

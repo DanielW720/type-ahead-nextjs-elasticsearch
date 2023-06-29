@@ -12,7 +12,10 @@ export const SearchMoviesForm = ({
   searchMovies,
 }: {
   setSearchResponse: React.Dispatch<
-    React.SetStateAction<MovieSearchResponse | null>
+    React.SetStateAction<{
+      queryTerm: String;
+      response: MovieSearchResponse;
+    } | null>
   >;
   searchMovies: (title: string) => Promise<MovieSearchResponse>;
 }) => {
@@ -24,15 +27,15 @@ export const SearchMoviesForm = ({
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const res = await searchMovies(data.query);
-    setSearchResponse(res);
+    setSearchResponse({
+      queryTerm: data.query,
+      response: res,
+    });
   };
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center"
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           placeholder="Search titles..."
           {...register("query")}
