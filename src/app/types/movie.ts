@@ -9,6 +9,7 @@ export type Movie = {
   star2?: string;
   star1?: string;
   posterLink: string;
+  highlight?: string;
 };
 
 export type SearchEngineResponse = {
@@ -31,6 +32,9 @@ export type SearchEngineResponse = {
           Series_Title: string;
           Genre: string;
           Poster_Link: string;
+        };
+        highlight?: {
+          Series_Title: string[];
         };
       }
     ];

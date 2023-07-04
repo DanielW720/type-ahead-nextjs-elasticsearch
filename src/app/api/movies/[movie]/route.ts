@@ -24,6 +24,11 @@ function buildSearchQuery(q: string) {
         Series_Title: q,
       },
     },
+    highlight: {
+      fields: {
+        Series_Title: {},
+      },
+    },
     suggest: {
       title_phrase_suggestions: {
         text: q,
@@ -51,6 +56,7 @@ function buildMoviesArray(res: SearchEngineResponse): Movie[] {
       star3: movie.Star3,
       star4: movie.Star4,
       posterLink: movie.Poster_Link,
+      highlight: searchHit.highlight?.Series_Title[0],
     });
   });
   return movies;
