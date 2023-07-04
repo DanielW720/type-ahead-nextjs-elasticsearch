@@ -57,7 +57,7 @@ export const SearchMovies = () => {
                 window.open(`https://google.com/search?q=${movie.title} movie`);
               }}
             >
-              {movie.title}
+              <span>{movie.highlight}</span>
             </button>
           </li>
         ))}
