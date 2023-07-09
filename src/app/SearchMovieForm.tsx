@@ -1,7 +1,8 @@
 "use client";
 
-import { Movie, MovieSearchResponse } from "./types/movie";
+import { MovieSearchResponse } from "./types/movie";
 import { useForm, SubmitHandler } from "react-hook-form";
+import "material-icons/iconfont/filled.css";
 
 type Inputs = {
   query: string;
@@ -35,17 +36,19 @@ export const SearchMoviesForm = ({
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="relative"
+        autoComplete="off"
+      >
         <input
           placeholder="Search titles..."
           {...register("query")}
-          className="rounded-md p-2 text-black"
+          className="rounded-md p-2 text-black outline-none"
         />
-        <input
-          type="submit"
-          value={"Search movies"}
-          className="mt-2 w-fit cursor-pointer rounded-md bg-pink-300 px-2 py-2 font-semibold text-blue-950"
-        />
+        <button type="submit" className="absolute right-2 top-2 block h-fit">
+          <span className="material-icons text-black">search</span>
+        </button>
       </form>
     </div>
   );

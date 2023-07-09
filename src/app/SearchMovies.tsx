@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Movie, MovieSearchResponse } from "./types/movie";
+import { MovieSearchResponse } from "./types/movie";
 import { SearchMoviesForm } from "./SearchMovieForm";
 
 export const SearchMovies = () => {
@@ -10,6 +10,7 @@ export const SearchMovies = () => {
     response: MovieSearchResponse;
   } | null>(null);
 
+  // Used in two places
   const searchMoviesForm = (
     <SearchMoviesForm
       setSearchResponse={setSearchResponse}
@@ -50,15 +51,12 @@ export const SearchMovies = () => {
         {searchResponse.response.hits.movies.map((movie) => (
           <li
             key={movie.id}
-            className="my-2 rounded-sm border-l-4 border-blue-400 bg-pink-300 px-4 py-2 text-lg font-semibold text-blue-950"
+            className="my-2 cursor-pointer rounded-sm border-l-4 border-blue-400 bg-pink-300 px-4 py-2 text-lg font-semibold text-blue-950"
+            onClick={() => {
+              window.open(`https://google.com/search?q=${movie.title} movie`);
+            }}
           >
-            <button
-              onClick={() => {
-                window.open(`https://google.com/search?q=${movie.title} movie`);
-              }}
-            >
-              <span>{movie.highlight}</span>
-            </button>
+            <span>{movie.highlight}</span>
           </li>
         ))}
       </ul>
